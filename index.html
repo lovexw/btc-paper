@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="比特币白皮书中文详解版 - 用通俗易懂的方式解释区块链技术，包含互动演示、生活类比和完整术语表。适合初学者和深度学习者。">
+    <meta name="keywords" content="比特币, 区块链, 中本聪, 白皮书, 加密货币, 工作量证明, 挖矿, 去中心化, Bitcoin, Blockchain, Satoshi Nakamoto">
+    <meta name="author" content="中本聪 (Satoshi Nakamoto)">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="比特币白皮书 - 中文详解版">
+    <meta property="og:description" content="用通俗易懂的方式理解比特币和区块链技术，包含互动演示和详细解释。">
+    <meta property="og:image" content="">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="比特币白皮书 - 中文详解版">
+    <meta property="twitter:description" content="用通俗易懂的方式理解比特币和区块链技术，包含互动演示和详细解释。">
+    <meta property="twitter:image" content="">
+    
+    <title>比特币白皮书 - 中文详解版 | Bitcoin Whitepaper Chinese</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>₿</text></svg>">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="logo">₿</span>
+                <span class="title">比特币白皮书详解</span>
+            </div>
+            <div class="nav-links">
+                <a href="#abstract">摘要</a>
+                <a href="#sections">章节</a>
+                <a href="#demos">互动演示</a>
+                <a href="#glossary">术语表</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>比特币：一种点对点的电子现金系统</h1>
+            <p class="subtitle">Bitcoin: A Peer-to-Peer Electronic Cash System</p>
+            <p class="author">作者：中本聪 (Satoshi Nakamoto)</p>
+            <p class="date">2008年10月31日</p>
+            <div class="hero-buttons">
+                <a href="#abstract" class="btn btn-primary">开始阅读</a>
+                <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" class="btn btn-secondary">原版PDF</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 摘要 -->
+        <section id="abstract" class="section">
+            <div class="container">
+                <h2>摘要</h2>
+                <div class="content-box">
+                    <p class="original-text">
+                        纯粹的点对点版本的电子现金将允许在线支付直接从一方发送到另一方，而无需通过金融机构。数字签名提供了部分解决方案，但如果仍然需要一个受信任的第三方来防止双重支付，那么主要的好处就会丧失。我们提出了一种使用点对点网络解决双重支付问题的方案。该网络通过将交易哈希到一个持续的基于哈希的工作量证明链中来给交易打上时间戳，形成一个如果不重新进行工作量证明就无法更改的记录。最长的链不仅作为所见证的事件序列的证明，而且证明它来自最大的CPU算力池。只要大多数CPU算力由不攻击网络的节点控制，它们就会生成最长的链并超过攻击者。该网络本身只需要最小的结构。消息以最大努力为基础进行广播，节点可以随意离开和重新加入网络，接受最长的工作量证明链作为它们离开时发生的事情的证明。
+                    </p>
+                    
+                    <div class="explanation-box">
+                        <h3>🎯 新手理解版</h3>
+                        <p><strong>问题：</strong>在互联网上进行支付时，我们通常需要银行或支付宝这样的中间机构来确保交易安全。但这有什么问题吗？</p>
+                        <ul>
+                            <li>需要支付手续费</li>
+                            <li>需要信任第三方</li>
+                            <li>可能会泄露隐私</li>
+                            <li>交易可能被拒绝或冻结</li>
+                        </ul>
+                        
+                        <p><strong>解决方案：</strong>比特币创建了一个不需要中间机构的支付系统：</p>
+                        <ul>
+                            <li>✅ <strong>点对点支付：</strong>像给朋友现金一样直接转账，不需要银行</li>
+                            <li>✅ <strong>防止作弊：</strong>使用密码学和工作量证明防止有人重复花费同一笔钱</li>
+                            <li>✅ <strong>公开账本：</strong>所有交易记录在一个公开的、不可篡改的账本上</li>
+                            <li>✅ <strong>去中心化：</strong>由全球成千上万台电脑共同维护，没有中央控制</li>
+                        </ul>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h3>🏗️ 生活类比</h3>
+                        <p><strong>传统银行转账：</strong></p>
+                        <p>想象你要给朋友转100元。你告诉银行，银行从你账户扣100元，加到朋友账户。银行是中间人，你必须信任它。</p>
+                        
+                        <p><strong>比特币转账：</strong></p>
+                        <p>想象一个村庄，所有人都有一本相同的账本。当你要给朋友100元：</p>
+                        <ol>
+                            <li>你大声宣布："我给小明100元"</li>
+                            <li>所有人都在自己的账本上记录这笔交易</li>
+                            <li>为了防止你说谎，你需要用只有你知道的密码（私钥）签名</li>
+                            <li>大家验证签名后，都在账本上记录，交易完成</li>
+                        </ol>
+                        <p>这样就不需要银行了，因为所有人都见证了这笔交易！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 章节导航 -->
+        <section id="sections" class="section section-dark">
+            <div class="container">
+                <h2>白皮书章节</h2>
+                <div class="sections-grid">
+                    <a href="#section-1" class="section-card">
+                        <div class="section-number">01</div>
+                        <h3>简介</h3>
+                        <p>了解为什么需要比特币</p>
+                    </a>
+                    <a href="#section-2" class="section-card">
+                        <div class="section-number">02</div>
+                        <h3>交易</h3>
+                        <p>电子货币如何流转</p>
+                    </a>
+                    <a href="#section-3" class="section-card">
+                        <div class="section-number">03</div>
+                        <h3>时间戳服务器</h3>
+                        <p>如何证明交易发生的时间</p>
+                    </a>
+                    <a href="#section-4" class="section-card">
+                        <div class="section-number">04</div>
+                        <h3>工作量证明</h3>
+                        <p>比特币的核心安全机制</p>
+                    </a>
+                    <a href="#section-5" class="section-card">
+                        <div class="section-number">05</div>
+                        <h3>网络</h3>
+                        <p>系统如何运作</p>
+                    </a>
+                    <a href="#section-6" class="section-card">
+                        <div class="section-number">06</div>
+                        <h3>激励机制</h3>
+                        <p>为什么有人愿意维护网络</p>
+                    </a>
+                    <a href="#section-7" class="section-card">
+                        <div class="section-number">07</div>
+                        <h3>回收磁盘空间</h3>
+                        <p>如何节省存储空间</p>
+                    </a>
+                    <a href="#section-8" class="section-card">
+                        <div class="section-number">08</div>
+                        <h3>简化支付验证</h3>
+                        <p>轻量级钱包的原理</p>
+                    </a>
+                    <a href="#section-9" class="section-card">
+                        <div class="section-number">09</div>
+                        <h3>价值的组合与分割</h3>
+                        <p>如何处理不同金额</p>
+                    </a>
+                    <a href="#section-10" class="section-card">
+                        <div class="section-number">10</div>
+                        <h3>隐私</h3>
+                        <p>如何保护用户隐私</p>
+                    </a>
+                    <a href="#section-11" class="section-card">
+                        <div class="section-number">11</div>
+                        <h3>计算</h3>
+                        <p>攻击者成功的概率分析</p>
+                    </a>
+                    <a href="#section-12" class="section-card">
+                        <div class="section-number">12</div>
+                        <h3>结论</h3>
+                        <p>比特币系统总结</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第1章：简介 -->
+        <section id="section-1" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">第1章</span>
+                    <h2>简介 (Introduction)</h2>
+                </div>
+                
+                <div class="content-box">
+                    <p class="original-text">
+                        互联网上的商务几乎完全依赖金融机构作为可信的第三方来处理电子支付。虽然该系统对于大多数交易来说运作良好，但它仍然受到基于信任的模型的固有弱点的困扰。完全不可逆的交易实际上是不可能的，因为金融机构无法避免调解纠纷。调解成本增加了交易成本，限制了最小实际交易规模并切断了小额临时交易的可能性，而且在失去为不可逆服务进行不可逆支付的能力方面存在更广泛的成本。由于存在逆转的可能性，对信任的需求就会扩散。商家必须警惕他们的客户，向他们索要比其他情况下需要的更多信息。一定比例的欺诈被认为是不可避免的。这些成本和支付的不确定性可以通过面对面使用实物货币来避免，但是没有机制可以在没有可信方的情况下通过通信渠道进行支付。
+                    </p>
+                    <p class="original-text">
+                        我们需要的是一个基于密码学证明而不是信任的电子支付系统，允许任何两个自愿的当事方直接相互交易，而不需要可信的第三方。在计算上不可逆转的交易将保护卖家免受欺诈，而常规的托管机制可以很容易地实施来保护买家。在本文中，我们提出了一种使用点对点分布式时间戳服务器来生成交易时间顺序的计算证明的双重支付问题的解决方案。只要诚实节点集体控制的CPU算力多于任何合作的攻击者节点群，该系统就是安全的。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 核心问题</h3>
+                        <p><strong>为什么传统的在线支付有问题？</strong></p>
+                        
+                        <div class="problem-solution">
+                            <div class="problem">
+                                <h4>❌ 问题</h4>
+                                <ul>
+                                    <li><strong>需要信任中间人：</strong>你必须信任银行不会作恶</li>
+                                    <li><strong>交易可逆：</strong>银行可以撤销交易，导致商家担心欺诈</li>
+                                    <li><strong>高手续费：</strong>调解纠纷的成本最终由用户承担</li>
+                                    <li><strong>无法小额支付：</strong>转账1毛钱可能需要付2毛手续费</li>
+                                    <li><strong>隐私泄露：</strong>商家需要收集你的个人信息</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="solution">
+                                <h4>✅ 比特币的解决方案</h4>
+                                <ul>
+                                    <li><strong>密码学证明：</strong>用数学而不是信任来保证安全</li>
+                                    <li><strong>不可逆交易：</strong>像现金一样，付出去就收不回来</li>
+                                    <li><strong>低成本：</strong>不需要中间机构，成本极低</li>
+                                    <li><strong>支持小额：</strong>转账0.0001元也很划算</li>
+                                    <li><strong>保护隐私：</strong>不需要暴露真实身份</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h3>🏗️ 现实类比</h3>
+                        <p><strong>传统支付 = 通过邮局寄钱</strong></p>
+                        <ul>
+                            <li>你必须信任邮局不会偷你的钱</li>
+                            <li>邮局可以拒绝递送或退回</li>
+                            <li>需要填写很多个人信息</li>
+                            <li>要支付不菲的手续费</li>
+                        </ul>
+
+                        <p><strong>比特币 = 面对面给现金</strong></p>
+                        <ul>
+                            <li>不需要信任任何第三方</li>
+                            <li>一手交钱一手交货，无法撤销</li>
+                            <li>不需要暴露身份</li>
+                            <li>几乎没有成本</li>
+                        </ul>
+
+                        <p><strong>神奇之处：</strong>比特币让你可以在互联网上像面对面给现金一样支付！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第2章：交易 -->
+        <section id="section-2" class="section section-dark">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">第2章</span>
+                    <h2>交易 (Transactions)</h2>
+                </div>
+                
+                <div class="content-box">
+                    <p class="original-text">
+                        我们将电子货币定义为一串数字签名。每个所有者通过对前一笔交易和下一个所有者的公钥的哈希进行数字签名，并将这些添加到货币的末尾，从而将货币转移给下一个所有者。收款人可以验证签名以验证所有权链。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 交易的本质</h3>
+                        <p><strong>比特币是什么？</strong></p>
+                        <p>比特币不是一个实际的"币"，而是一串数字签名链。每次转账就是在这个链上添加新的签名。</p>
+                        
+                        <div class="key-concept">
+                            <h4>关键概念：数字签名</h4>
+                            <p><strong>什么是数字签名？</strong></p>
+                            <ul>
+                                <li>就像你的手写签名，但是是数字版的</li>
+                                <li>只有你能创建你的数字签名（使用私钥）</li>
+                                <li>任何人都能验证这是你的签名（使用公钥）</li>
+                                <li>无法伪造或复制</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="demo-box">
+                        <h3>💻 互动演示：比特币交易链</h3>
+                        <div id="transaction-demo" class="interactive-demo">
+                            <div class="demo-controls">
+                                <button onclick="addTransaction()" class="btn btn-primary">创建新交易</button>
+                                <button onclick="resetTransactions()" class="btn btn-secondary">重置</button>
+                            </div>
+                            <div id="transaction-chain" class="transaction-chain">
+                                <div class="transaction-box">
+                                    <div class="tx-header">交易 #1</div>
+                                    <div class="tx-content">
+                                        <p><strong>从：</strong>Alice</p>
+                                        <p><strong>到：</strong>Bob</p>
+                                        <p><strong>金额：</strong>1 BTC</p>
+                                        <p><strong>签名：</strong><code class="signature">3045...a7b2</code></p>
+                                    </div>
+                                    <div class="tx-arrow">→</div>
+                                </div>
+                                <div class="transaction-box">
+                                    <div class="tx-header">交易 #2</div>
+                                    <div class="tx-content">
+                                        <p><strong>从：</strong>Bob</p>
+                                        <p><strong>到：</strong>Charlie</p>
+                                        <p><strong>金额：</strong>1 BTC</p>
+                                        <p><strong>签名：</strong><code class="signature">4156...c8d3</code></p>
+                                    </div>
+                                    <div class="tx-arrow">→</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="demo-explanation">
+                            <p><strong>观察要点：</strong></p>
+                            <ul>
+                                <li>每笔交易都包含上一笔交易的信息</li>
+                                <li>每个人用自己的私钥签名</li>
+                                <li>形成一个可追溯的所有权链</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="original-text">
+                        当然，问题在于收款人无法验证所有者之一没有双重支付这枚货币。一个常见的解决方案是引入一个可信的中央权威机构或铸币厂，检查每笔交易是否存在双重支付。在每笔交易之后，货币必须返回铸币厂以发行新货币，只有直接从铸币厂发行的货币才被信任不会被双重支付。这个解决方案的问题在于整个货币系统的命运取决于运营铸币厂的公司，每笔交易都必须通过它们，就像银行一样。
+                    </p>
+
+                    <p class="original-text">
+                        我们需要一种方法让收款人知道以前的所有者没有签署任何更早的交易。就我们的目的而言，最早的交易才是重要的，所以我们不关心之后的双重支付尝试。确认交易不存在的唯一方法是知道所有交易。在基于铸币厂的模型中，铸币厂知道所有交易并决定哪个交易先到。要在没有可信方的情况下实现这一点，交易必须公开宣布，我们需要一个系统让参与者就他们收到的顺序达成单一历史共识。收款人需要证明在每笔交易时，大多数节点都同意它是第一个被接收的。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 双重支付问题</h3>
+                        <p><strong>数字货币最大的挑战</strong></p>
+                        
+                        <div class="problem-example">
+                            <h4>问题场景：</h4>
+                            <p>假设Bob有1个比特币：</p>
+                            <ol>
+                                <li>Bob创建交易#1：把1 BTC转给Alice</li>
+                                <li>Bob同时创建交易#2：把同样的1 BTC转给Charlie</li>
+                                <li>这是欺诈！Bob想用同一笔钱买两样东西</li>
+                            </ol>
+                            
+                            <h4>传统解决方案（中心化）：</h4>
+                            <p>银行作为中央权威，检查每笔交易，拒绝第二笔。</p>
+                            <p><strong>缺点：</strong>又回到了需要信任银行的老问题。</p>
+                            
+                            <h4>比特币解决方案（去中心化）：</h4>
+                            <p>所有交易公开广播，整个网络共同决定哪笔交易先到。</p>
+                            <p><strong>优点：</strong>不需要信任任何单一机构。</p>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h3>🏗️ 生活类比</h3>
+                        <p><strong>双重支付就像复印钞票</strong></p>
+                        <p>实物现金很难复制（有防伪技术），而且你给了别人，自己手里就没有了。但数字文件可以无限复制，这就是问题所在。</p>
+                        
+                        <p><strong>比特币的解决方法：</strong></p>
+                        <p>想象一个透明的玻璃房间，所有人都能看到里面发生的一切：</p>
+                        <ul>
+                            <li>Bob要花钱时，必须在房间里大声宣布</li>
+                            <li>所有人都听到并记录</li>
+                            <li>如果Bob试图花第二次，大家会说："不行！我们已经记录你花过了！"</li>
+                            <li>只有被大多数人承认的交易才有效</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第3章：时间戳服务器 -->
+        <section id="section-3" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">第3章</span>
+                    <h2>时间戳服务器 (Timestamp Server)</h2>
+                </div>
+                
+                <div class="content-box">
+                    <p class="original-text">
+                        我们提出的解决方案从时间戳服务器开始。时间戳服务器通过对要打时间戳的项目区块的哈希进行时间戳并广泛发布该哈希（如在报纸或Usenet帖子中）来工作。时间戳证明数据在那个时刻必然存在，显然，才能进入哈希。每个时间戳在其哈希中包含前一个时间戳，形成一个链，每个额外的时间戳都加强之前的时间戳。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 时间戳的作用</h3>
+                        <p><strong>为什么需要时间戳？</strong></p>
+                        <p>要防止双重支付，我们需要证明哪笔交易先发生。时间戳就是证明"这件事在这个时间存在"的工具。</p>
+                        
+                        <div class="key-concept">
+                            <h4>关键概念：哈希 (Hash)</h4>
+                            <p><strong>什么是哈希？</strong></p>
+                            <ul>
+                                <li>哈希是一种"数字指纹"</li>
+                                <li>把任意数据转换成固定长度的字符串</li>
+                                <li>相同的输入总是产生相同的哈希</li>
+                                <li>即使改变一个字母，哈希也会完全不同</li>
+                                <li>无法从哈希反推原始数据</li>
+                            </ul>
+                            
+                            <div class="example-box">
+                                <p><strong>示例：</strong></p>
+                                <p>输入："Hello" → 哈希：<code>185f8db32271fe25f561a6fc938b2e264306ec304eda518007d1764826381969</code></p>
+                                <p>输入："Hello!" → 哈希：<code>334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7</code></p>
+                                <p>注意：仅仅加了一个感叹号，哈希就完全不同了！</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demo-box">
+                        <h3>💻 互动演示：哈希函数</h3>
+                        <div class="interactive-demo">
+                            <div class="hash-demo">
+                                <label for="hash-input">输入任意文本：</label>
+                                <textarea id="hash-input" rows="3" placeholder="在这里输入任何内容...">Hello, Bitcoin!</textarea>
+                                <button onclick="calculateHash()" class="btn btn-primary">计算哈希</button>
+                                <div class="hash-output">
+                                    <p><strong>SHA-256 哈希值：</strong></p>
+                                    <code id="hash-result">点击按钮计算哈希...</code>
+                                </div>
+                                <div class="demo-tips">
+                                    <p><strong>试试看：</strong></p>
+                                    <ul>
+                                        <li>修改输入，观察哈希如何变化</li>
+                                        <li>添加或删除一个字符</li>
+                                        <li>改变大小写</li>
+                                        <li>输入相同内容，哈希始终相同</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="demo-box">
+                        <h3>💻 互动演示：时间戳链</h3>
+                        <div class="interactive-demo">
+                            <div class="timestamp-chain">
+                                <div class="block">
+                                    <div class="block-header">区块 #1</div>
+                                    <div class="block-content">
+                                        <p><strong>数据：</strong>交易A, B, C</p>
+                                        <p><strong>前一个哈希：</strong><code>0000...</code></p>
+                                        <p><strong>时间戳：</strong>2024-01-01 10:00</p>
+                                        <p><strong>当前哈希：</strong><code class="hash">a1b2...c3d4</code></p>
+                                    </div>
+                                </div>
+                                <div class="chain-arrow">⛓️</div>
+                                <div class="block">
+                                    <div class="block-header">区块 #2</div>
+                                    <div class="block-content">
+                                        <p><strong>数据：</strong>交易D, E, F</p>
+                                        <p><strong>前一个哈希：</strong><code class="hash">a1b2...c3d4</code></p>
+                                        <p><strong>时间戳：</strong>2024-01-01 10:10</p>
+                                        <p><strong>当前哈希：</strong><code class="hash">e5f6...g7h8</code></p>
+                                    </div>
+                                </div>
+                                <div class="chain-arrow">⛓️</div>
+                                <div class="block">
+                                    <div class="block-header">区块 #3</div>
+                                    <div class="block-content">
+                                        <p><strong>数据：</strong>交易G, H, I</p>
+                                        <p><strong>前一个哈希：</strong><code class="hash">e5f6...g7h8</code></p>
+                                        <p><strong>时间戳：</strong>2024-01-01 10:20</p>
+                                        <p><strong>当前哈希：</strong><code class="hash">i9j0...k1l2</code></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="demo-explanation">
+                                <p><strong>重要特性：</strong></p>
+                                <ul>
+                                    <li>每个区块都包含前一个区块的哈希</li>
+                                    <li>形成一个环环相扣的链条</li>
+                                    <li>如果修改区块#1，它的哈希会改变</li>
+                                    <li>区块#2的"前一个哈希"就对不上了</li>
+                                    <li>整个链条都会断裂，篡改会被发现</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h3>🏗️ 生活类比</h3>
+                        <p><strong>时间戳链就像报纸</strong></p>
+                        <p>想证明你在某个时间拥有某个想法？</p>
+                        <ol>
+                            <li>写下你的想法</li>
+                            <li>在当天的报纸上登一个广告（发布哈希）</li>
+                            <li>因为报纸有日期，所以可以证明你的想法在那天就存在了</li>
+                            <li>报纸一旦印刷就无法修改，这就是证据</li>
+                        </ol>
+                        
+                        <p><strong>比特币的时间戳链：</strong></p>
+                        <ul>
+                            <li>每个区块就像一份报纸</li>
+                            <li>包含那个时间发生的所有交易</li>
+                            <li>每份"报纸"都引用前一份（包含前一个哈希）</li>
+                            <li>形成一条不可篡改的历史记录</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第4章：工作量证明 -->
+        <section id="section-4" class="section section-dark">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">第4章</span>
+                    <h2>工作量证明 (Proof-of-Work)</h2>
+                </div>
+                
+                <div class="content-box">
+                    <p class="original-text">
+                        要在点对点的基础上实现分布式时间戳服务器，我们需要使用类似于Adam Back的Hashcash的工作量证明系统，而不是报纸或Usenet帖子。工作量证明涉及扫描一个值，当被哈希时（如使用SHA-256），哈希以一定数量的零位开头。所需的平均工作量随着所需零位数量呈指数增长，并且可以通过执行单个哈希来验证。
+                    </p>
+
+                    <p class="original-text">
+                        对于我们的时间戳网络，我们通过在区块中增加一个随机数，直到找到一个值使区块的哈希具有所需的零位来实现工作量证明。一旦CPU工作量已经用于满足工作量证明，除非重新完成工作，否则无法更改区块。由于后面的区块链接在它之后，改变区块的工作将包括重做其后所有区块的工作。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 工作量证明：比特币的核心创新</h3>
+                        <p><strong>问题：谁有权添加新区块？</strong></p>
+                        <p>如果任何人都可以轻松添加区块，攻击者可以创建大量假区块来欺诈系统。我们需要一个机制让添加区块变得困难，但验证却很容易。</p>
+                        
+                        <div class="key-concept">
+                            <h4>工作量证明的原理</h4>
+                            <p><strong>目标：</strong>找到一个特殊的数字（随机数nonce），使得区块的哈希值以多个0开头</p>
+                            
+                            <div class="example-box">
+                                <p><strong>示例：</strong></p>
+                                <p>区块数据：交易A, B, C</p>
+                                <p>尝试 nonce = 1 → 哈希：<code>8a3f...</code> ❌（不以0开头）</p>
+                                <p>尝试 nonce = 2 → 哈希：<code>7b2e...</code> ❌</p>
+                                <p>尝试 nonce = 3 → 哈希：<code>9c4d...</code> ❌</p>
+                                <p>...</p>
+                                <p>尝试 nonce = 72534 → 哈希：<code>0000a1b2...</code> ✅（以4个0开头）</p>
+                                <p><strong>这个过程叫做"挖矿"！</strong></p>
+                            </div>
+                            
+                            <ul>
+                                <li>✅ <strong>困难：</strong>平均需要尝试数百万次才能找到</li>
+                                <li>✅ <strong>可验证：</strong>其他人只需计算一次哈希就能验证</li>
+                                <li>✅ <strong>不可逆：</strong>一旦完成，要修改就必须重做所有工作</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="demo-box">
+                        <h3>💻 互动演示：挖矿模拟器</h3>
+                        <div class="interactive-demo">
+                            <div class="mining-demo">
+                                <div class="mining-config">
+                                    <label>
+                                        难度（前导0的个数）：
+                                        <select id="difficulty">
+                                            <option value="1">1（简单）</option>
+                                            <option value="2" selected>2（中等）</option>
+                                            <option value="3">3（困难）</option>
+                                            <option value="4">4（很困难）</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        区块数据：
+                                        <input type="text" id="block-data" value="Alice -> Bob: 1 BTC">
+                                    </label>
+                                    <button onclick="startMining()" id="mine-btn" class="btn btn-primary">开始挖矿</button>
+                                    <button onclick="stopMining()" id="stop-btn" class="btn btn-secondary" style="display:none;">停止</button>
+                                </div>
+                                
+                                <div class="mining-status">
+                                    <div class="stat">
+                                        <span class="stat-label">当前 Nonce:</span>
+                                        <span id="current-nonce" class="stat-value">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">尝试次数:</span>
+                                        <span id="attempts" class="stat-value">0</span>
+                                    </div>
+                                    <div class="stat">
+                                        <span class="stat-label">当前哈希:</span>
+                                        <code id="current-hash" class="stat-value">点击开始挖矿...</code>
+                                    </div>
+                                </div>
+                                
+                                <div id="mining-result" class="mining-result" style="display:none;">
+                                    <h4>✅ 挖矿成功！</h4>
+                                    <p><strong>找到的 Nonce:</strong> <span id="found-nonce"></span></p>
+                                    <p><strong>有效哈希:</strong> <code id="valid-hash"></code></p>
+                                    <p><strong>总尝试次数:</strong> <span id="total-attempts"></span></p>
+                                </div>
+                                
+                                <div class="demo-explanation">
+                                    <p><strong>观察：</strong></p>
+                                    <ul>
+                                        <li>电脑需要尝试很多次才能找到有效的nonce</li>
+                                        <li>难度越高（前导0越多），需要的时间越长</li>
+                                        <li>这就是为什么挖矿需要大量计算能力</li>
+                                        <li>但验证只需要计算一次哈希</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="original-text">
+                        工作量证明还解决了在多数决策中确定代表性的问题。如果多数基于一IP地址一票，那么任何能够分配许多IP的人都可以破坏它。工作量证明本质上是一CPU一票。多数决策由最长的链表示，该链投入了最大的工作量证明努力。如果大多数CPU算力由诚实节点控制，诚实链将增长最快并超过任何竞争链。要修改过去的区块，攻击者必须重做该区块及其后所有区块的工作量证明，然后赶上并超过诚实节点的工作。我们稍后将说明，随着后续区块的添加，较慢的攻击者赶上的概率呈指数下降。
+                    </p>
+
+                    <p class="original-text">
+                        为了补偿硬件速度的增加和随时间变化对运行节点的兴趣，工作量证明难度由移动平均值确定，目标是每小时平均区块数量。如果它们生成得太快，难度就会增加。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 为什么工作量证明如此重要？</h3>
+                        
+                        <div class="importance-grid">
+                            <div class="importance-item">
+                                <h4>1️⃣ 防止作弊</h4>
+                                <p>要创建假交易并加入区块链，攻击者需要：</p>
+                                <ul>
+                                    <li>创建假区块（需要大量计算）</li>
+                                    <li>重做后面所有区块（计算量呈指数增长）</li>
+                                    <li>速度超过诚实节点（需要51%以上算力）</li>
+                                </ul>
+                                <p><strong>结论：</strong>在经济上不划算，攻击成本远大于收益。</p>
+                            </div>
+                            
+                            <div class="importance-item">
+                                <h4>2️⃣ 公平投票</h4>
+                                <p>传统投票系统的问题：</p>
+                                <ul>
+                                    <li>一人一票？谁来验证身份？</li>
+                                    <li>一IP一票？可以伪造大量IP</li>
+                                </ul>
+                                <p>工作量证明的解决方案：</p>
+                                <ul>
+                                    <li>一CPU一票（算力投票）</li>
+                                    <li>谁付出的计算工作多，谁就有更大话语权</li>
+                                    <li>无法伪造计算工作</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="importance-item">
+                                <h4>3️⃣ 自动调节</h4>
+                                <p>比特币网络会自动调整挖矿难度：</p>
+                                <ul>
+                                    <li>目标：平均每10分钟产生一个新区块</li>
+                                    <li>矿工太多，出块太快？→ 提高难度</li>
+                                    <li>矿工减少，出块太慢？→ 降低难度</li>
+                                </ul>
+                                <p><strong>结果：</strong>系统始终保持稳定运行。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h3>🏗️ 生活类比</h3>
+                        <p><strong>工作量证明就像淘金</strong></p>
+                        <ul>
+                            <li>🏔️ <strong>挖矿：</strong>矿工在河里淘金沙，需要筛选大量沙子才能找到金子</li>
+                            <li>⏱️ <strong>困难但可验证：</strong>淘金很难，但验证金子是真的却很容易（咬一口就知道）</li>
+                            <li>💎 <strong>稀缺性：</strong>金子难找，所以有价值；比特币难挖，所以有价值</li>
+                            <li>⚖️ <strong>公平竞争：</strong>谁投入更多劳动（算力），谁就更可能找到（挖到区块）</li>
+                        </ul>
+                        
+                        <p><strong>另一个类比：拼图竞赛</strong></p>
+                        <p>想象一个全球拼图竞赛：</p>
+                        <ol>
+                            <li>主办方给出一张图片（区块数据）</li>
+                            <li>参赛者需要找到特殊的拼图块（nonce）</li>
+                            <li>当这块拼上时，完整图片必须符合特定规则（以0开头的哈希）</li>
+                            <li>第一个找到的人获得奖励（区块奖励）</li>
+                            <li>然后开始下一轮拼图</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 互动演示区域 -->
+        <section id="demos" class="section">
+            <div class="container">
+                <h2>核心概念互动演示</h2>
+                <div class="demos-grid">
+                    <div class="demo-card">
+                        <h3>🔐 数字签名演示</h3>
+                        <p>了解如何使用公钥和私钥进行签名和验证</p>
+                        <a href="#signature-demo" class="btn btn-primary">开始探索</a>
+                    </div>
+                    <div class="demo-card">
+                        <h3>⛓️ 区块链可视化</h3>
+                        <p>观察区块如何链接，以及篡改如何被检测</p>
+                        <a href="#blockchain-demo" class="btn btn-primary">开始探索</a>
+                    </div>
+                    <div class="demo-card">
+                        <h3>⚡ 双重支付攻击</h3>
+                        <p>模拟攻击场景，理解比特币如何防御</p>
+                        <a href="#double-spend-demo" class="btn btn-primary">开始探索</a>
+                    </div>
+                    <div class="demo-card">
+                        <h3>🌳 默克尔树</h3>
+                        <p>探索高效验证交易的数据结构</p>
+                        <a href="#merkle-demo" class="btn btn-primary">开始探索</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数字签名演示 -->
+        <section id="signature-demo" class="section section-dark">
+            <div class="container">
+                <h2>🔐 数字签名互动演示</h2>
+                <div class="demo-box">
+                    <div class="interactive-demo">
+                        <div class="signature-demo-container">
+                            <div class="demo-step">
+                                <h3>步骤 1: 生成密钥对</h3>
+                                <button onclick="generateKeys()" class="btn btn-primary">生成新密钥对</button>
+                                <div id="keys-display" class="keys-display">
+                                    <div class="key-box">
+                                        <h4>🔑 私钥 (Private Key)</h4>
+                                        <p class="key-description">只有你知道，用于签名</p>
+                                        <code id="private-key" class="key-code">点击上方按钮生成...</code>
+                                        <p class="warning">⚠️ 永远不要分享你的私钥！</p>
+                                    </div>
+                                    <div class="key-box">
+                                        <h4>🔓 公钥 (Public Key)</h4>
+                                        <p class="key-description">可以公开，用于验证签名</p>
+                                        <code id="public-key" class="key-code">点击上方按钮生成...</code>
+                                        <p class="info">✓ 可以安全地分享给任何人</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="demo-step">
+                                <h3>步骤 2: 创建并签名消息</h3>
+                                <textarea id="message-to-sign" rows="3" placeholder="输入要签名的消息...">我，Alice，转账 5 BTC 给 Bob</textarea>
+                                <button onclick="signMessage()" class="btn btn-primary">签名消息</button>
+                                <div id="signature-display" class="signature-display">
+                                    <h4>✍️ 数字签名</h4>
+                                    <code id="signature-output">签名将显示在这里...</code>
+                                </div>
+                            </div>
+
+                            <div class="demo-step">
+                                <h3>步骤 3: 验证签名</h3>
+                                <button onclick="verifySignature()" class="btn btn-primary">验证签名</button>
+                                <div id="verification-result" class="verification-result">
+                                    验证结果将显示在这里...
+                                </div>
+                                <div class="tampering-test">
+                                    <h4>试试篡改消息：</h4>
+                                    <textarea id="tampered-message" rows="3" placeholder="修改原始消息，看看会发生什么..."></textarea>
+                                    <button onclick="verifyTamperedMessage()" class="btn btn-secondary">验证篡改后的消息</button>
+                                    <div id="tamper-result"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="demo-explanation">
+                            <h3>💡 关键要点</h3>
+                            <ul>
+                                <li><strong>私钥</strong>就像你的印章，只有你能使用</li>
+                                <li><strong>公钥</strong>就像你的签名样本，任何人都能用来验证</li>
+                                <li><strong>数字签名</strong>证明消息确实来自你，且未被篡改</li>
+                                <li>即使修改消息中的一个字符，签名验证也会失败</li>
+                                <li>这就是比特币交易安全的基础！</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 区块链可视化演示 -->
+        <section id="blockchain-demo" class="section">
+            <div class="container">
+                <h2>⛓️ 区块链可视化演示</h2>
+                <div class="demo-box">
+                    <div class="interactive-demo">
+                        <div class="blockchain-demo-container">
+                            <div class="demo-controls">
+                                <button onclick="addBlockToChain()" class="btn btn-primary">添加新区块</button>
+                                <button onclick="resetBlockchain()" class="btn btn-secondary">重置区块链</button>
+                            </div>
+
+                            <div id="blockchain-display" class="blockchain-display">
+                                <!-- 区块链将在这里动态生成 -->
+                            </div>
+
+                            <div class="tampering-section">
+                                <h3>🔬 测试篡改检测</h3>
+                                <p>选择一个区块，修改其中的数据，观察整个链如何受到影响：</p>
+                                <div class="tamper-controls">
+                                    <label>
+                                        选择区块:
+                                        <select id="block-to-tamper">
+                                            <option value="1">区块 #1</option>
+                                        </select>
+                                    </label>
+                                    <label>
+                                        新数据:
+                                        <input type="text" id="new-block-data" placeholder="输入新的区块数据">
+                                    </label>
+                                    <button onclick="tamperBlock()" class="btn btn-warning">篡改区块</button>
+                                </div>
+                                <div id="tamper-explanation" class="tamper-explanation"></div>
+                            </div>
+                        </div>
+
+                        <div class="demo-explanation">
+                            <h3>💡 观察要点</h3>
+                            <ul>
+                                <li>每个区块包含：数据、时间戳、前一个区块的哈希、自己的哈希</li>
+                                <li>区块通过哈希链接在一起</li>
+                                <li>修改任何一个区块的数据，其哈希会改变</li>
+                                <li>后续所有区块的"前一个哈希"都会对不上</li>
+                                <li>篡改会立即被发现！这就是区块链不可篡改的原因</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第5章：网络 -->
+        <section id="section-5" class="section section-dark">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">第5章</span>
+                    <h2>网络 (Network)</h2>
+                </div>
+                
+                <div class="content-box">
+                    <p class="original-text">
+                        运行网络的步骤如下：<br>
+                        1) 新交易向所有节点广播<br>
+                        2) 每个节点将新交易收集到一个区块中<br>
+                        3) 每个节点都在为其区块寻找困难的工作量证明<br>
+                        4) 当一个节点找到工作量证明时，它将区块广播给所有节点<br>
+                        5) 节点仅在区块中的所有交易都有效且尚未花费时才接受该区块<br>
+                        6) 节点通过使用接受的区块的哈希作为前一个哈希在链中创建下一个区块来表示对该区块的接受
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 比特币网络如何运作</h3>
+                        <p><strong>简化版流程：</strong></p>
+                        
+                        <div class="key-concept">
+                            <h4>📡 步骤详解</h4>
+                            <ol style="margin-left: 1.5rem;">
+                                <li><strong>广播交易：</strong>Alice想给Bob转1个BTC，她创建交易并广播到网络</li>
+                                <li><strong>收集交易：</strong>矿工们收集这个交易和其他人的交易</li>
+                                <li><strong>竞争挖矿：</strong>所有矿工开始竞赛，寻找有效的nonce</li>
+                                <li><strong>宣布胜利：</strong>第一个找到的矿工广播新区块："我找到了！"</li>
+                                <li><strong>验证区块：</strong>其他节点检查：交易有效吗？工作量证明正确吗？</li>
+                                <li><strong>接受并继续：</strong>如果一切OK，大家接受这个区块，开始下一轮</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h3>🏗️ 生活类比</h3>
+                        <p><strong>比特币网络就像接力赛：</strong></p>
+                        <ul>
+                            <li>🏃 <strong>广播交易</strong> = 有人喊"我要跑步了！"</li>
+                            <li>📋 <strong>收集交易</strong> = 裁判记录所有要跑的人</li>
+                            <li>🏁 <strong>挖矿竞赛</strong> = 大家一起比赛，看谁先到终点</li>
+                            <li>🎖️ <strong>获胜者</strong> = 第一个到达的人举旗示意</li>
+                            <li>✅ <strong>验证</strong> = 裁判确认他真的跑完全程，没有作弊</li>
+                            <li>🔄 <strong>下一轮</strong> = 接力棒传递，开始新一轮比赛</li>
+                        </ul>
+                    </div>
+
+                    <p class="original-text">
+                        节点始终认为最长的链是正确的，并将继续努力延长它。如果两个节点同时广播不同版本的下一个区块，一些节点可能会先收到其中一个。在这种情况下，他们在收到的第一个区块上工作，但保存另一个分支以防它变长。当找到下一个工作量证明且其中一个分支变长时，僵局将被打破；在另一个分支上工作的节点将切换到更长的分支。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 分叉的处理</h3>
+                        <p><strong>当两个矿工同时挖到区块会怎样？</strong></p>
+                        
+                        <div class="problem-example">
+                            <h4>场景：</h4>
+                            <p>矿工A和矿工B几乎同时找到有效区块：</p>
+                            <ul>
+                                <li>矿工A广播区块#100A</li>
+                                <li>矿工B广播区块#100B</li>
+                                <li>有些节点先收到A的区块，有些先收到B的区块</li>
+                                <li>区块链暂时分叉成两条！</li>
+                            </ul>
+                            
+                            <h4>解决方案：</h4>
+                            <p><strong>最长链规则：</strong></p>
+                            <ol>
+                                <li>一部分矿工在A分支上继续挖矿</li>
+                                <li>另一部分在B分支上继续挖矿</li>
+                                <li>假设A分支先找到下一个区块#101A</li>
+                                <li>现在A分支更长了！</li>
+                                <li>所有节点自动切换到更长的A分支</li>
+                                <li>B分支被放弃（成为"孤块"）</li>
+                            </ul>
+                            
+                            <p><strong>结果：</strong>网络自动达成共识，选择最长的链作为正确的版本！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第6章：激励 -->
+        <section id="section-6" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">第6章</span>
+                    <h2>激励 (Incentive)</h2>
+                </div>
+                
+                <div class="content-box">
+                    <p class="original-text">
+                        按照惯例，区块中的第一笔交易是一个特殊交易，它启动一个由区块创建者拥有的新货币。这为节点提供了支持网络的激励，并提供了一种将货币最初分配到流通中的方法，因为没有中央权威机构来发行它们。稳定地添加一定数量的新货币类似于黄金矿工消耗资源以将黄金添加到流通中。在我们的案例中，消耗的是CPU时间和电力。
+                    </p>
+
+                    <p class="original-text">
+                        激励也可以通过交易费来资助。如果交易的输出值小于其输入值，则差额为交易费，该费用将添加到包含该交易的区块的激励值中。一旦预定数量的货币进入流通，激励就可以完全过渡到交易费，并且完全无通货膨胀。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 为什么有人愿意挖矿？</h3>
+                        
+                        <div class="key-concept">
+                            <h4>💰 两种奖励机制</h4>
+                            
+                            <div class="importance-grid">
+                                <div class="importance-item">
+                                    <h4>1️⃣ 区块奖励（Coinbase）</h4>
+                                    <p><strong>什么是区块奖励？</strong></p>
+                                    <ul>
+                                        <li>每个新区块的第一笔交易很特殊</li>
+                                        <li>它凭空创造新的比特币</li>
+                                        <li>奖励给挖出这个区块的矿工</li>
+                                    </ul>
+                                    
+                                    <p><strong>奖励变化：</strong></p>
+                                    <ul>
+                                        <li>2009年：50 BTC/区块</li>
+                                        <li>2012年：25 BTC/区块（第一次减半）</li>
+                                        <li>2016年：12.5 BTC/区块</li>
+                                        <li>2020年：6.25 BTC/区块</li>
+                                        <li>2024年：3.125 BTC/区块</li>
+                                        <li>约每4年减半一次</li>
+                                        <li>最终总量：2100万枚</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="importance-item">
+                                    <h4>2️⃣ 交易手续费</h4>
+                                    <p><strong>什么是交易费？</strong></p>
+                                    <ul>
+                                        <li>用户转账时支付的小费</li>
+                                        <li>给矿工的额外奖励</li>
+                                        <li>手续费越高，交易优先级越高</li>
+                                    </ul>
+                                    
+                                    <p><strong>计算方式：</strong></p>
+                                    <p><code>交易费 = 输入总额 - 输出总额</code></p>
+                                    
+                                    <p><strong>例子：</strong></p>
+                                    <ul>
+                                        <li>输入：10 BTC</li>
+                                        <li>输出：9.99 BTC（给接收者）</li>
+                                        <li>交易费：0.01 BTC（给矿工）</li>
+                                    </ul>
+                                    
+                                    <p><strong>未来：</strong>当所有比特币都被挖出后（约2140年），矿工只能获得交易费。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analogy-box">
+                        <h3>🏗️ 生活类比</h3>
+                        <p><strong>挖矿激励就像淘金：</strong></p>
+                        <ul>
+                            <li>⛏️ <strong>早期淘金者：</strong>容易找到大块金子（50 BTC奖励）</li>
+                            <li>📉 <strong>金子越来越少：</strong>每4年金矿产量减半</li>
+                            <li>💎 <strong>最后的金子：</strong>约2140年全部挖完（2100万枚）</li>
+                            <li>💵 <strong>转向服务费：</strong>之后靠提供交易服务赚钱（手续费）</li>
+                        </ul>
+                        
+                        <p><strong>这种设计的好处：</strong></p>
+                        <ul>
+                            <li>✅ <strong>初期激励：</strong>高奖励吸引矿工加入，快速建立网络</li>
+                            <li>✅ <strong>控制通胀：</strong>新币产量递减，避免恶性通货膨胀</li>
+                            <li>✅ <strong>稀缺性：</strong>总量有限，类似黄金</li>
+                            <li>✅ <strong>长期可持续：</strong>过渡到手续费模式，永久运行</li>
+                        </ul>
+                    </div>
+
+                    <p class="original-text">
+                        激励可能有助于鼓励节点保持诚实。如果一个贪婪的攻击者能够聚集比所有诚实节点更多的CPU算力，他将不得不选择是用它来欺骗人们窃取他的付款，还是用它来生成新货币。他应该发现按规则行事更有利可图，这些规则比所有其他人都更青睐他更多的新货币，而不是破坏系统和他自己财富的有效性。
+                    </p>
+
+                    <div class="explanation-box">
+                        <h3>🎯 经济学防御</h3>
+                        <p><strong>为什么攻击者会选择诚实？</strong></p>
+                        
+                        <div class="problem-solution">
+                            <div class="problem">
+                                <h4>❌ 攻击的成本</h4>
+                                <ul>
+                                    <li>需要控制51%以上的全网算力</li>
+                                    <li>购买大量矿机（数十亿美元）</li>
+                                    <li>消耗巨额电费</li>
+                                    <li>即使成功，也会被发现</li>
+                                    <li>比特币价值暴跌，攻击者损失惨重</li>
+                                    <li>自己的矿机也变得毫无价值</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="solution">
+                                <h4>✅ 诚实的收益</h4>
+                                <ul>
+                                    <li>用算力诚实挖矿</li>
+                                    <li>稳定获得区块奖励</li>
+                                    <li>获得交易手续费</li>
+                                    <li>比特币生态健康，币价稳定</li>
+                                    <li>长期持续盈利</li>
+                                    <li>矿机保值</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p style="margin-top: 1rem;"><strong>结论：</strong>诚实挖矿比攻击更赚钱！这是比特币最聪明的设计之一。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第7-12章摘要 -->
+        <section id="section-7" class="section section-dark">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-badge">第7-12章</span>
+                    <h2>其他重要主题</h2>
+                </div>
+                
+                <div class="content-box">
+                    <div class="explanation-box">
+                        <h3>第7章：回收磁盘空间 (Reclaiming Disk Space)</h3>
+                        <p><strong>问题：</strong>区块链会越来越大，怎么办？</p>
+                        <p><strong>解决方案：</strong>使用<strong>默克尔树</strong>（Merkle Tree）数据结构</p>
+                        <ul>
+                            <li>旧交易可以被压缩</li>
+                            <li>只保留默克尔树的根</li>
+                            <li>节省大量存储空间</li>
+                            <li>仍然可以验证交易的存在</li>
+                        </ul>
+                        
+                        <div class="example-box">
+                            <p><strong>例子：</strong></p>
+                            <p>一个有4笔交易的区块：</p>
+                            <pre>
+                交易A  交易B  交易C  交易D
+                  \    /        \    /
+                 Hash AB      Hash CD
+                     \          /
+                    Merkle Root
+                            </pre>
+                            <p>旧交易可以删除，只保留Merkle Root，大大节省空间！</p>
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h3>第8章：简化支付验证 (Simplified Payment Verification, SPV)</h3>
+                        <p><strong>问题：</strong>手机等设备无法下载完整的区块链（几百GB）</p>
+                        <p><strong>解决方案：</strong>轻量级客户端（SPV钱包）</p>
+                        <ul>
+                            <li>只下载区块头（80字节），不下载所有交易</li>
+                            <li>需要验证时，向节点请求默克尔证明</li>
+                            <li>可以验证交易是否被包含在区块中</li>
+                            <li>节省99%以上的存储空间</li>
+                        </ul>
+                        
+                        <p><strong>工作原理：</strong></p>
+                        <ol>
+                            <li>下载所有区块头（很小）</li>
+                            <li>找到工作量证明最长的链</li>
+                            <li>需要验证某笔交易时，请求默克尔路径</li>
+                            <li>验证该路径连接到区块头</li>
+                        </ol>
+                        
+                        <p><strong>实际应用：</strong>手机钱包、硬件钱包大多使用SPV模式。</p>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h3>第9章：价值的组合与分割 (Combining and Splitting Value)</h3>
+                        <p><strong>问题：</strong>如何处理不同金额的转账？</p>
+                        <p><strong>解决方案：</strong>使用<strong>UTXO</strong>（未花费交易输出）模型</p>
+                        
+                        <div class="example-box">
+                            <p><strong>例子：</strong></p>
+                            <p>Alice有一个10 BTC的UTXO，想给Bob转3 BTC：</p>
+                            <ul>
+                                <li><strong>输入：</strong>10 BTC（Alice的UTXO）</li>
+                                <li><strong>输出1：</strong>3 BTC（给Bob）</li>
+                                <li><strong>输出2：</strong>6.99 BTC（找零给自己）</li>
+                                <li><strong>手续费：</strong>0.01 BTC（给矿工）</li>
+                            </ul>
+                        </div>
+                        
+                        <p><strong>组合多个输入：</strong></p>
+                        <p>如果Alice有多个小额UTXO（2 BTC + 1 BTC + 0.5 BTC），可以全部作为输入，转账给Bob。</p>
+                        
+                        <p><strong>特点：</strong></p>
+                        <ul>
+                            <li>每笔交易可以有多个输入和输出</li>
+                            <li>通常有一个输出是找零给自己</li>
+                            <li>灵活处理任意金额</li>
+                        </ul>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h3>第10章：隐私 (Privacy)</h3>
+                        <p><strong>传统银行模型：</strong></p>
+                        <ul>
+                            <li>通过限制信息访问来保护隐私</li>
+                            <li>只有交易双方和银行知道</li>
+                            <li>但必须暴露身份给银行</li>
+                        </ul>
+                        
+                        <p><strong>比特币模型：</strong></p>
+                        <ul>
+                            <li>所有交易公开，但身份匿名</li>
+                            <li>只能看到"某个地址转给另一个地址"</li>
+                            <li>无法直接关联到真实身份</li>
+                        </ul>
+                        
+                        <div class="problem-solution">
+                            <div class="solution">
+                                <h4>隐私最佳实践</h4>
+                                <ul>
+                                    <li>✅ <strong>使用新地址：</strong>每次交易使用新的比特币地址</li>
+                                    <li>✅ <strong>避免地址重用：</strong>不要反复使用同一地址</li>
+                                    <li>✅ <strong>混币服务：</strong>打乱交易来源（需谨慎使用）</li>
+                                    <li>✅ <strong>隔离身份：</strong>不要将比特币地址与真实身份关联</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="problem">
+                                <h4>隐私风险</h4>
+                                <ul>
+                                    <li>❌ 地址重用：容易被追踪</li>
+                                    <li>❌ 链分析：专业公司可以分析交易模式</li>
+                                    <li>❌ 交易所KYC：实名认证后地址可被关联</li>
+                                    <li>❌ 多输入合并：暴露多个地址属于同一人</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h3>第11章：计算 (Calculations)</h3>
+                        <p><strong>主题：</strong>攻击者成功的概率分析</p>
+                        <p>白皮书中用数学证明，攻击者想要推翻已确认的交易，成功概率随着确认数指数级下降。</p>
+                        
+                        <div class="example-box">
+                            <p><strong>攻击场景：</strong></p>
+                            <p>攻击者想要双重支付：</p>
+                            <ol>
+                                <li>向商家支付，商家发货</li>
+                                <li>同时秘密挖一条分叉链</li>
+                                <li>试图让分叉链超过主链</li>
+                                <li>如果成功，商家的收款交易就无效了</li>
+                            </ol>
+                            
+                            <p><strong>成功概率：</strong></p>
+                            <ul>
+                                <li>1个确认：攻击者有一定成功机会（如果算力强）</li>
+                                <li>3个确认：成功率大幅下降</li>
+                                <li>6个确认：几乎不可能成功（行业标准）</li>
+                                <li>每增加一个确认，难度指数级增加</li>
+                            </ul>
+                            
+                            <p><strong>实践建议：</strong></p>
+                            <ul>
+                                <li>小额交易：1-3个确认</li>
+                                <li>中等金额：3-6个确认</li>
+                                <li>大额交易：6个或更多确认</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="explanation-box">
+                        <h3>第12章：结论 (Conclusion)</h3>
+                        <p>中本聪总结了比特币系统的核心创新：</p>
+                        
+                        <div class="key-concept">
+                            <h4>🎯 比特币的突破性成就</h4>
+                            <ul>
+                                <li>✅ 实现了无需信任第三方的电子支付系统</li>
+                                <li>✅ 通过工作量证明解决了双重支付问题</li>
+                                <li>✅ 点对点网络提供了去中心化的基础设施</li>
+                                <li>✅ 经济激励确保了网络的安全性</li>
+                                <li>✅ 简单而强大的设计让系统高效运作</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="key-concept">
+                            <h4>💡 关键设计理念</h4>
+                            <ul>
+                                <li><strong>简单性：</strong>核心协议简单明了</li>
+                                <li><strong>鲁棒性：</strong>节点可以随时加入和离开</li>
+                                <li><strong>去中心化：</strong>没有单点故障</li>
+                                <li><strong>激励相容：</strong>诚实行为获得最大回报</li>
+                                <li><strong>可扩展性：</strong>支持SPV等轻量级方案</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="analogy-box" style="margin-top: 1rem; border-left: 4px solid var(--success);">
+                            <h4 style="color: var(--success);">🚀 比特币的历史意义</h4>
+                            <p>比特币不仅是一种数字货币，更是一场金融和技术革命：</p>
+                            <ul>
+                                <li>首次实现了真正的数字稀缺性</li>
+                                <li>证明了去中心化系统的可行性</li>
+                                <li>启发了数千个区块链项目</li>
+                                <li>推动了密码学和分布式系统的发展</li>
+                                <li>为金融普惠提供了新的可能</li>
+                            </ul>
+                            
+                            <p><strong>中本聪的愿景：</strong>"我们需要的是一个基于密码学证明而不是信任的电子支付系统"</p>
+                            <p>这个愿景，改变了世界。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 术语表 -->
+        <section id="glossary" class="section section-dark">
+            <div class="container">
+                <h2>📚 术语表</h2>
+                <div class="glossary-grid">
+                    <div class="glossary-item">
+                        <h3>区块链 (Blockchain)</h3>
+                        <p class="definition">一个由区块组成的链表，每个区块包含一组交易和前一个区块的哈希。</p>
+                        <p class="simple">简单说：就像一本公开的、不可篡改的账本，记录了所有历史交易。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>哈希 (Hash)</h3>
+                        <p class="definition">一种将任意长度的数据转换为固定长度字符串的单向函数。</p>
+                        <p class="simple">简单说：数字指纹，任何数据的改变都会导致完全不同的哈希值。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>工作量证明 (Proof of Work)</h3>
+                        <p class="definition">一种共识机制，要求节点完成一定量的计算工作才能创建新区块。</p>
+                        <p class="simple">简单说：通过"挖矿"（大量计算）来赢得记账权和奖励。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>挖矿 (Mining)</h3>
+                        <p class="definition">通过计算寻找满足难度要求的nonce值，从而创建新区块的过程。</p>
+                        <p class="simple">简单说：像淘金一样，通过大量尝试来找到有效的区块。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>随机数 (Nonce)</h3>
+                        <p class="definition">Number used once - 一个只使用一次的数字，矿工不断调整它来寻找有效哈希。</p>
+                        <p class="simple">简单说：挖矿时不断尝试的那个数字。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>私钥 (Private Key)</h3>
+                        <p class="definition">一串只有所有者知道的秘密数字，用于签名交易和证明所有权。</p>
+                        <p class="simple">简单说：你的数字密码，绝对不能告诉任何人。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>公钥 (Public Key)</h3>
+                        <p class="definition">从私钥派生的公开密钥，其他人用它来验证你的签名和向你发送比特币。</p>
+                        <p class="simple">简单说：你的账号，可以公开给别人转账。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>数字签名 (Digital Signature)</h3>
+                        <p class="definition">使用私钥对消息进行加密处理，证明消息来自你且未被篡改。</p>
+                        <p class="simple">简单说：数字版的手写签名，但更安全，无法伪造。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>双重支付 (Double Spending)</h3>
+                        <p class="definition">试图将同一笔数字货币花费两次的欺诈行为。</p>
+                        <p class="simple">简单说：想用同一笔钱买两样东西，比特币通过区块链防止这种作弊。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>节点 (Node)</h3>
+                        <p class="definition">运行比特币软件、维护区块链副本并验证交易的计算机。</p>
+                        <p class="simple">简单说：参与比特币网络的电脑，共同维护账本。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>点对点 (Peer-to-Peer, P2P)</h3>
+                        <p class="definition">一种网络架构，参与者之间直接通信，无需中央服务器。</p>
+                        <p class="simple">简单说：大家直接交流，不需要通过中间人。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>去中心化 (Decentralization)</h3>
+                        <p class="definition">没有单一的控制方，权力分散在网络的所有参与者中。</p>
+                        <p class="simple">简单说：没有老板，大家共同做主。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>共识 (Consensus)</h3>
+                        <p class="definition">网络中的节点就区块链的状态达成一致的过程。</p>
+                        <p class="simple">简单说：大家投票决定哪个版本的账本是正确的。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>默克尔树 (Merkle Tree)</h3>
+                        <p class="definition">一种树形数据结构，用于高效验证大量数据的完整性。</p>
+                        <p class="simple">简单说：一种聪明的组织方式，让你不用下载所有数据也能验证交易。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>聪 (Satoshi)</h3>
+                        <p class="definition">比特币的最小单位，1比特币 = 1亿聪，以中本聪命名。</p>
+                        <p class="simple">简单说：比特币的"分"，就像1元钱等于100分。</p>
+                    </div>
+
+                    <div class="glossary-item">
+                        <h3>区块奖励 (Block Reward)</h3>
+                        <p class="definition">矿工成功挖出新区块后获得的比特币奖励。</p>
+                        <p class="simple">简单说：挖矿成功的奖金，激励矿工维护网络。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 更多章节内容继续... -->
+        <section class="section">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>继续学习</h2>
+                    <p>这只是比特币白皮书的开始部分。区块链技术博大精深，继续探索更多章节来深入理解。</p>
+                    <div class="cta-buttons">
+                        <a href="#section-5" class="btn btn-primary">继续阅读下一章</a>
+                        <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" class="btn btn-secondary">阅读原版PDF</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于本站</h3>
+                    <p>比特币白皮书中文详解版，致力于用最通俗易懂的方式解释区块链技术。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>资源</h3>
+                    <ul>
+                        <li><a href="https://bitcoin.org/bitcoin.pdf" target="_blank">原版白皮书</a></li>
+                        <li><a href="https://bitcoin.org" target="_blank">Bitcoin.org</a></li>
+                        <li><a href="https://github.com/bitcoin/bitcoin" target="_blank">Bitcoin GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系</h3>
+                    <p>本项目开源，欢迎贡献和反馈。</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 比特币白皮书详解. 原作者：中本聪 (Satoshi Nakamoto)</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</div>
+    
+    <!-- 阅读进度条 -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
